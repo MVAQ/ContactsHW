@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ContactsHW.View.HomePage">
+    <Grid RowDefinitions="70, *">
+        <Grid Grid.Row="0"
+              ColumnDefinitions="0.3, 0.3, 0.3"/>
+        <Button Text ="Add"
+                    Grid.Column="0"/>
+            <Entry Placeholder="First Name" Grid.Column="1"/>
+            <Entry Placeholder="Last Name" Grid.Column="2"/>
+        </Grid>
+</ContentPage> 
