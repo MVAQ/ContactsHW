@@ -2,12 +2,53 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ContactsHW.View.HomePage">
-    <Grid RowDefinitions="70, *">
+    
+    <Grid RowDefinitions="70, 70, *">
+
         <Grid Grid.Row="0"
-              ColumnDefinitions="0.3, 0.3, 0.3"/>
-        <Button Text ="Add"
-                    Grid.Column="0"/>
-            <Entry Placeholder="First Name" Grid.Column="1"/>
-            <Entry Placeholder="Last Name" Grid.Column="2"/>
+              ColumnDefinitions="0.3*, 0.3*, 0.3*">
+
+                 <Button Text ="Add"
+                  Grid.Column="0"
+                  Command="{Binding AddButtonTapCommand}"/>
+
+                 <Entry Text="{Binding FirstName}" 
+                   Placeholder="First Name" 
+                   Grid.Column="1"/>
+
+                 <Entry Text="{Binding LirstName}" 
+                   Placeholder="Last Name" 
+                   Grid.Column="2"/>
         </Grid>
-</ContentPage> 
+    <Grid Grid.Row="1"
+          ColumnDefinitions="0.5*, 0.5*">
+
+            <Button Grid.Column="0"
+                    Text="Delete"
+                    Command="{Binding DeleteTapComand}"/>
+            <Button Grid.Column="1"
+                    Text="Update"
+                    Command="{Binding UpdateTapComand}"/>
+        </Grid>
+    <ListView Grid.Row="2"
+                  SelectedItem="{Binding SelectedItem}"
+                  ItemsSource="{Binding ContactsList}" 
+                  HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <StackLayout>
+                                 
+                                <Label Text="{Binding FirstName}"/>
+                                <Label Text="{Binding LastName}"/>
+                                <Label Text="{Binding CreationTime}"/>
+
+                                </StackLayout>
+                        </ViewCell.View>            
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>  

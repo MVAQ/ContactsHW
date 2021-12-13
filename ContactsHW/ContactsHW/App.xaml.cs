@@ -1,11 +1,9 @@
-﻿
-
-using Prism.Ioc;
+﻿using Prism.Ioc;
 using Prism.Unity;
 using Xamarin.Forms;
 using ContactsHW.View;
 using ContactsHW.ViewModel;
-using ContactsHW.Services.Settings;
+using ContactsHW.Services.Repositorys;
 
 
 namespace ContactsHW
@@ -20,16 +18,18 @@ namespace ContactsHW
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             //Services
-            containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
+            //containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
+            containerRegistry.RegisterInstance<IRepository>(Container.Resolve<Repository>()); 
             //Navigation
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();  
+            containerRegistry.RegisterForNavigation<ContactHomePage>();  
         }
 
         protected override void OnInitialized()
         { 
             InitializeComponent();
-            NavigationService.NavigateAsync($"{nameof(HomePage)}");
+            NavigationService.NavigateAsync($"{nameof(ContactHomePage)}");
         }
         protected override void OnStart()
         {
