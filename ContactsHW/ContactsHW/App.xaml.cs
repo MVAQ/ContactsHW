@@ -23,13 +23,13 @@ namespace ContactsHW
             //Navigation
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();  
-            containerRegistry.RegisterForNavigation<ContactHomePage>();  
+            containerRegistry.RegisterForNavigation<SingUp>();  
         }
 
         protected override void OnInitialized()
         { 
             InitializeComponent();
-            NavigationService.NavigateAsync($"{nameof(ContactHomePage)}");
+            NavigationService.NavigateAsync($"{nameof(SingUp)}");
         }
         protected override void OnStart()
         {

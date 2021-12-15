@@ -11,5 +11,7 @@ namespace ContactsHW.Model
         public string LastName { get; set; }
         public DateTime CreationTime { get; set; }
 
+        public int UserID { get; set; }
+
     }
 }

@@ -15,7 +15,7 @@ namespace ContactsHW.Services.Repositorys
         {
             _database = new Lazy<SQLiteAsyncConnection>(() =>
               {
-                  var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "contact.db3");
+                  var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "_contact.db3");
                   var database = new SQLiteAsyncConnection(path);
                   database.CreateTableAsync<ContactModel>();
                   return database;

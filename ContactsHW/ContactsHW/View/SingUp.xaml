@@ -3,10 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ContactsHW.View.SingUp">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Orientation="Vertical">
+            <StackLayout Orientation="Horizontal" BackgroundColor="LightSteelBlue" Padding="20" Margin="0">
+                <ImageButton Source = "/ContactsHW/ContactsHW/ContactsHW/View/IMG/left-arrow.jpg"/>
+                <Label Text="Sing In User" HorizontalTextAlignment="Start" TextColor="White" FontSize="16"/>
+            </StackLayout>
+            <Entry Margin="40,80,20,10" Placeholder="Login" FontSize="16" />
+            <Entry Margin="40,10,20,10" Placeholder="Password" FontSize="16" />
+            <Entry Margin="40,10,20,10" Placeholder="ConfirmPassword" FontSize="16" />
+            <Button Text="Sing Up" Background="Orange" BorderColor="Wheat"  Margin="50, 240, 40, 10"/>
+           
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
