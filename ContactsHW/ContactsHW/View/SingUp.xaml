@@ -1,19 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Navigation.Xaml;assembly=Prism.Forms, 
+             clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              x:Class="ContactsHW.View.SingUp">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
-            <StackLayout Orientation="Horizontal" BackgroundColor="LightSteelBlue" Padding="20" Margin="0">
-                <ImageButton Source = "/ContactsHW/ContactsHW/ContactsHW/View/IMG/left-arrow.jpg"/>
+            <StackLayout Orientation="Horizontal" BackgroundColor="LightSteelBlue" Padding="10" Margin="0">
+                <ImageButton BorderWidth="5" BorderColor="Black" WidthRequest="30" HeightRequest="30" Source="ContactsHW.View.IMG.4.jpg" Command="{prism:NavigateTo SingIn}" BackgroundColor="LightSteelBlue"/>
                 <Label Text="Sing In User" HorizontalTextAlignment="Start" TextColor="White" FontSize="16"/>
             </StackLayout>
-            <Entry Margin="40,80,20,10" Placeholder="Login" FontSize="16" />
-            <Entry Margin="40,10,20,10" Placeholder="Password" FontSize="16" />
-            <Entry Margin="40,10,20,10" Placeholder="ConfirmPassword" FontSize="16" />
-            <Button Text="Sing Up" Background="Orange" BorderColor="Wheat"  Margin="50, 240, 40, 10"/>
-           
-
-        </StackLayout>
+            <Image Source="ContactsHW.ContactsHW.ContactsHW.View.IMG.Wing.jpg"/>
+            <Entry Text ="{binding Login}"  Margin="40,10,20,10" TextChanged="Entry_TextChanged"
+                   Keyboard="Plain"  Placeholder="Login" FontSize="16" />
+            <Entry Text ="{binding Name}" Margin="40,10,20,10" TextChanged="Entry_TextChanged"  
+                   Keyboard="Text" Placeholder="Name" FontSize="16" />
+            <Entry Text ="{binding Email}" Margin="40,10,20,10" TextChanged="Entry_TextChanged"  
+                   Keyboard="Email" Placeholder="Email" FontSize="16" />
+            <Entry Text ="{binding Password}" Margin="40,10,20,10" TextChanged="Entry_TextChanged" 
+                   Placeholder="Password" FontSize="16" IsPassword="True" />
+            <Entry Text ="{binding ConfirmPassword}" Margin="40,10,20,10" TextChanged="Entry_TextChanged" 
+                   Placeholder="ConfirmPassword" FontSize="16" IsPassword="True" />
+            <Button Text="Sing Up" Command="{Binding NavigateCommand}" Background="Orange" BorderColor="Wheat"  Margin="50, 240, 40, 10"/>
+               </StackLayout>
     </ContentPage.Content>
-</ContentPage>
+</ContentPage>   

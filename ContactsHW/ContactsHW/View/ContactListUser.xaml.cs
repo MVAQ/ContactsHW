@@ -10,16 +10,11 @@ using Xamarin.Forms.Xaml;
 namespace ContactsHW.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SingUp : ContentPage
+    public partial class ContactListUser : ContentPage
     {
-        public SingUp()
+        public ContactListUser()
         {
             InitializeComponent();
-        }
-
-        private void Entry_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }

@@ -9,17 +9,11 @@ using Xamarin.Forms.Xaml;
 
 namespace ContactsHW.View
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SingUp : ContentPage
+    public partial class MainListView 
     {
-        public SingUp()
+        public MainListView()
         {
             InitializeComponent();
-        }
-
-        private void Entry_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }

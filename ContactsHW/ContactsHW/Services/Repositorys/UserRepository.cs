@@ -1,4 +1,5 @@
-﻿using ContactsHW.Model;
+﻿
+using ContactsHW.Model;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -7,20 +8,21 @@ using System.Threading.Tasks;
 
 namespace ContactsHW.Services.Repositorys
 { 
-    public class Repository : IRepository 
+    public class UserRepository : IRepository
     {
         private Lazy<SQLiteAsyncConnection> _database;
-        public Repository() 
+        public UserRepository() 
         {
             _database = new Lazy<SQLiteAsyncConnection>(() =>
               {
-                  var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "_contact.db3");
+                  var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "userDB.db3");
                   var database = new SQLiteAsyncConnection(path);
-                  database.CreateTableAsync<ContactModel>();
+                  database.CreateTableAsync<UserModel>();
                   return database;
               });
         }
-    public async Task<int> DeleteAsync<T>(T entity) where T : IEntityBase, new()
+
+        public async Task<int> DeleteAsync<T>(T entity) where T : IEntityBase, new()
         {
             return await _database.Value.DeleteAsync(entity);
         }
@@ -36,5 +38,7 @@ namespace ContactsHW.Services.Repositorys
         {
             return await _database.Value.UpdateAsync(entity);
         }
+
     }
 }
+

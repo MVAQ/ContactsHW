@@ -4,7 +4,7 @@ using Xamarin.Forms;
 using ContactsHW.View;
 using ContactsHW.ViewModel;
 using ContactsHW.Services.Repositorys;
-
+using ContactsHW.Services.Manager;
 
 namespace ContactsHW
 {
@@ -18,16 +18,22 @@ namespace ContactsHW
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             //Services
-            //containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
-            containerRegistry.RegisterInstance<IRepository>(Container.Resolve<Repository>()); 
+         //    containerRegistry.RegisterInstance<IContactManager>(Container.Resolve<ContactManager>());
+            containerRegistry.RegisterInstance<IRepository>(Container.Resolve<Repository>());
             //Navigation
             containerRegistry.RegisterForNavigation<NavigationPage>();
-            containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();  
-            containerRegistry.RegisterForNavigation<SingUp>();  
+            containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
+            containerRegistry.RegisterForNavigation<SingUp, SingUpViewModel>();
+            containerRegistry.RegisterForNavigation<SingIn, SingInViewModel>();
+             // containerRegistry.RegisterForNavigation<MainListView, MainListViewModel>();
+            //containerRegistry.RegisterForNavigation<SettingsView/*, SettingsViewModel*/>();
+            //containerRegistry.RegisterForNavigation<AddEditProfileViem/*, AddEditProfileViem*/>();
+
+
         }
 
-        protected override void OnInitialized()
-        { 
+        protected override void OnInitialized ()
+        {
             InitializeComponent();
             NavigationService.NavigateAsync($"{nameof(SingUp)}");
         }
