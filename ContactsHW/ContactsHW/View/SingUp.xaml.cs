@@ -9,7 +9,6 @@ using Xamarin.Forms.Xaml;
 
 namespace ContactsHW.View
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SingUp : ContentPage
     {
         public SingUp()

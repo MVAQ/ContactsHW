@@ -1,18 +1,74 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ContactsHW.View.MainListView">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodel="clr-namespace:ContactsHW.ViewModel" x:DataType="viewmodel:MainListViewModel"
+             x:Class="ContactsHW.View.MainListView" x:Name="MainPage">
+
+    <NavigationPage.TitleView>
+        <Label Text="TextTextTextText" TextColor="White" FontSize="Medium" />
+    </NavigationPage.TitleView>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="log_out.png" />
+        <ToolbarItem IconImageSource="settings_icon.png"/>
+    </ContentPage.ToolbarItems>
 
 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-    <Grid  RowDefinitions="0.1*, 0.9*"
-         ColumnDefinitions="7*,3*">
-        <Label Grid.Row="0" Grid.Column="0" Text="MainList"/>
-        <!--<ImageButton Source = "ContactsHW/ContactsHW/ContactsHW/View/IMG/left-arrow.jpg"/>-->
-        <ImageButton BorderColor="Black" BorderWidth="2" Opacity="0.5"  Source = "Wing.jpg"/>
-        <Label Grid.Row="1" Grid.Column="0" Text="OOOOOOOOOOOOKKKKKKKKKKKKKTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTF"/>
-        <Label HorizontalTextAlignment="Center" Grid.Row="1" Grid.Column="1" Text="1111111111111111111111111111FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"/>
-        
+        <Label Text="TextTextTextText" HorizontalOptions="Center" VerticalOptions="Center"
+                  FontSize= "Large" IsVisible="true"/>
+
+        <ScrollView>
+            <ListView Grid.Row="0" ItemsSource="{Binding ContactList}"                            
+                      RowHeight="150"
+                      SelectionMode="None"
+                     SelectedItem="{Binding SelectedItem}">
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+
+                                <MenuItem Text="TextTextTextTextText"                                                 
+                                                  Command="{Binding Path=BindingContext.UpdateCommand,  Source={x:Reference MainPage}}"
+                                                  CommandParameter="{Binding .}" />
+
+                                <MenuItem Text="TextTextTextTextTextText"
+                                                  Command="{Binding Path=BindingContext.DeleteCommand,  Source={x:Reference MainPage}}"
+                                                  CommandParameter="{Binding .}" />
+
+                            </ViewCell.ContextActions>
+                            <ViewCell.View>
+                                <Grid>
+                                    <Image Source="{Binding ProfileImage}" Grid.Column="0" Grid.Row="0"/>
+                                    <Label  Text="{Binding FirstName}" FontSize="Title" Margin="0,20,0,0" />
+                                    <Label Text="{Binding LastName}"   Margin="0,60,0,0"/>
+                                    <Label Text="{Binding CreationTime}"  Margin="0,100,0,0" />
+                                </Grid>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollView>
+        <Button Text="+" FontAttributes="Bold" BorderColor="#4780ae"
+                BorderWidth="8" BackgroundColor="#cbe3fe" FontSize="Title"
+                BorderRadius="30" TextColor="#315673"
+                HorizontalOptions="End" WidthRequest="60" HeightRequest="60"
+                Margin="0,0,20,40" VerticalOptions="End"
+                Command="{Binding AddProfileCommand}"/>
     </Grid>
 
+    <ContentPage.Resources>
+
+        <Style x:Key="LabelStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="#a0a0a0"></Setter>
+            <Setter Property="Grid.Column" Value="1"></Setter>
+            <Setter Property="Grid.Row" Value="0"></Setter>
+        </Style>
+
+    </ContentPage.Resources>
 </ContentPage>

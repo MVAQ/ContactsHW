@@ -3,51 +3,55 @@ using Prism.Unity;
 using Xamarin.Forms;
 using ContactsHW.View;
 using ContactsHW.ViewModel;
-using ContactsHW.Services.Repositorys;
+using ContactsHW.Services.Repository;
 using ContactsHW.Services.Manager;
+using ContactsHW.Services.Authorization;
+using ContactsHW.Services.Authentication;
+using System;
 
 namespace ContactsHW
 {
-    public partial class App : PrismApplication
+public partial class App
+{
+    private IAuthorization _authorization;
+    public IAuthorization Authorization =>
+        _authorization ?? (_authorization = Container.Resolve<IAuthorization>());
+    public App( ) {}
+
+ 
+    #region -- Overrides --
+
+    protected override async void OnInitialized()
     {
-        public App()
-        {
-
-        }
-        #region ---- Ovverides----
-        protected override void RegisterTypes(IContainerRegistry containerRegistry)
-        {
-            //Services
-         //    containerRegistry.RegisterInstance<IContactManager>(Container.Resolve<ContactManager>());
-            containerRegistry.RegisterInstance<IRepository>(Container.Resolve<Repository>());
-            //Navigation
-            containerRegistry.RegisterForNavigation<NavigationPage>();
-            containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
-            containerRegistry.RegisterForNavigation<SingUp, SingUpViewModel>();
-            containerRegistry.RegisterForNavigation<SingIn, SingInViewModel>();
-             // containerRegistry.RegisterForNavigation<MainListView, MainListViewModel>();
-            //containerRegistry.RegisterForNavigation<SettingsView/*, SettingsViewModel*/>();
-            //containerRegistry.RegisterForNavigation<AddEditProfileViem/*, AddEditProfileViem*/>();
-
-
-        }
-
-        protected override void OnInitialized ()
-        {
-            InitializeComponent();
-            NavigationService.NavigateAsync($"{nameof(SingUp)}");
-        }
-        protected override void OnStart()
-        {
-        }
-
-        protected override void OnSleep()
-        {
-        }
-
-        protected override void OnResume()
-        {
-        }
-        #endregion
+        InitializeComponent();
+     // var AuthorizationIf = _authorization.IsLoggedIn();
+      //if (AuthorizationIf)
+       //{
+         // await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(SingIn)}");
+       //}
+       //else
+       //{
+          await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(SingUp)}");
+      // }
     }
+
+    protected override void RegisterTypes(IContainerRegistry containerRegistry)
+    {
+        //Services
+        containerRegistry.RegisterInstance<IRepository>(Container.Resolve<Repository>());
+        containerRegistry.RegisterInstance<IAuthentication>(Container.Resolve<Authentication>());
+        containerRegistry.RegisterInstance<IImgManager>(Container.Resolve<ImgManager>());
+        containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
+        containerRegistry.RegisterInstance<IAuthorization>(Container.Resolve<Authorization>());
+
+
+        //Navigation
+        containerRegistry.RegisterForNavigation<NavigationPage>();
+        containerRegistry.RegisterForNavigation<MainListView, MainListViewModel>();
+        containerRegistry.RegisterForNavigation<SingIn, SingInViewModel>();
+        containerRegistry.RegisterForNavigation<SingUp, SingUpViewModel>();
+    }
+
+    #endregion
+}
 }

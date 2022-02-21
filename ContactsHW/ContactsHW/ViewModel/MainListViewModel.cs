@@ -1,5 +1,5 @@
 ﻿using ContactsHW.Model;
-using ContactsHW.Services.Repositorys;
+using ContactsHW.Services.Repository;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -14,12 +14,12 @@ namespace ContactsHW.ViewModel
         public MainListViewModel(IRepository repository)
         {
             _repository=repository;
-            ObservableCollection<ContactModel> ContactList = new ObservableCollection<ContactModel>()
+            ObservableCollection<Contact> ContactList = new ObservableCollection<Contact>()
             {
-            new ContactModel()
+            new Contact()
             {
                 FirstName="Vasya",
-                 LastName = "Fedorov",
+                 LastName = "Chernov",
                   CreationTime= DateTime.Now,
                     UserID=1
             }

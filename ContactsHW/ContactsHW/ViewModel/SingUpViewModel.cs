@@ -1,85 +1,92 @@
-﻿using ContactsHW.Model;
-using ContactsHW.Services.Repositorys;
+﻿using Acr.UserDialogs;
+using ContactsHW.Model;
+using ContactsHW.Services.Authentication;
+using ContactsHW.Services.Manager;
+using ContactsHW.View;
+using ContactsHW.ViewModel;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace ContactsHW.ViewModel
 {
-    internal class SingUpViewModel : BindableBase
+    public class SingUpViewModel : BaseViewModel
     {
+        private IAuthentication _authentication;
 
-        private DelegateCommand _navigateCommand;
-        private UserRepository _repository;
+        #region -- Public Properties --
 
-
-
-        public DelegateCommand NavigateCommand =>
-            _navigateCommand ?? (_navigateCommand = new DelegateCommand(ExecuteNavigateCommand));
-        public INavigationService NavigationService { get; }
-        public SingUpViewModel(INavigationService navigationService, UserRepository repository)
-        {
-            NavigationService = navigationService;
-            _repository = repository;
-        }
-        async void ExecuteNavigateCommand()
-        {
-            await NavigationService.NavigateAsync("HomePage");
-        }
-        public ObservableCollection<UserModel> _userList;
-        public ObservableCollection<UserModel> UserList
-        {
-            get => _userList;
-            set => SetProperty(ref _userList, value);
-        }
-       public ICommand AddUserCommand => new Command(OnAddUserCommand);
-        private async void OnAddUserCommand( object obj)
-        {
-            if (Login != null && ConfirmPassword == Password) {
-            var User = new UserModel
-            {
-                Login = Login,
-                UserName = UserName,
-                Password = Password,
-                CreateDate = DateTime.Now
-            };
-            var id = await _repository.InsertAsync(User);
-            User.Id = id;
-            
-            UserList.Add(User);
-            }
-        }
-
-     
         private string _login;
         public string Login
         {
             get => _login;
             set => SetProperty(ref _login, value);
         }
-        private string _userName;
-        public string UserName
-        {
-            get => _userName;
-            set => SetProperty(ref _userName, value);
-        }
+
         private string _password;
         public string Password
         {
-            get => _password;        
+            get => _password;
             set => SetProperty(ref _password, value);
         }
-        public async Task InitializeAsync(INavigationParameters parameters)
+
+        private string _confirmPassword;
+        public string ConfirmPassword
         {
-            var userList = await _repository.GetAllAsync<UserModel>();
-            UserList = new ObservableCollection<UserModel>(userList);
+            get => _confirmPassword;
+            set => SetProperty(ref _confirmPassword, value);
+        }
+
+   //     public ICommand SignUpCommand => new Command(OnSignUpTap);
+
+        #endregion
+
+        public SingUpViewModel(INavigationService navigationService, IUserDialogs userDialogs,
+            IAuthentication authentication, ISettingsManager settingsManager) : base(navigationService, userDialogs, settingsManager)
+        {
+            _authentication = authentication;
+        }
+
+        #region -- Private Helpers --
+
+/*private async void OnSignUpTap()
+{
+    bool isLoginValid = Validator.IsLoginValid(Login);
+    bool isPasswrodValid = Validator.IsPasswordValid(Password, ConfirmPassword);
+
+    if (isLoginValid && isPasswrodValid)
+    {
+        var signUpResult = await _authentication.SingUpAsync(Login, Password);
+
+        if (signUpResult)
+        {
+            var user = new User { Login = Login, Password = Password };
+
+            await UserDialogs.AlertAsync(Resources["RedirectingToSignIn"], Resources["SuccessfullRegistration"], Resources["Ok"]);
+
+            var parameters = new NavigationParameters
+            {
+                {"login", user.Login }
+            };
+            await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(SingIn)}", parameters);
+        }
+
+        else
+        {
+            await UserDialogs.AlertAsync(Resources["LoginIsTaken"], Resources["SignUp"], Resources["Ok"]);
         }
     }
+
+    else
+    {
+        await UserDialogs.AlertAsync(Validator.alert, Resources["SignUp"], Resources["Ok"]);
+    }
+}*/
+
+
+#endregion
+}
+
 }
